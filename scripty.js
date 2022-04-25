@@ -46,7 +46,7 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-// asks input 5 times shows results of each rounds and at the end also shows the wins, loses and ties
+// asks input 5 times shows results of each rounds and at the end also shows your wins, loses and ties
 function game() {
     let win = 0
     let lose = 0
