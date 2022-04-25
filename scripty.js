@@ -52,7 +52,7 @@ function game() {
     let lose = 0
     let tie = 0
     for (let i = 0; i < 5; i++) {
-        let playerSelection = window.prompt("Enter rock, paper or scissor (Default is scissor)");
+        let playerSelection = prompt("Enter rock, paper or scissor (Default is scissor)");
         let computerSelection = computerPlay();
         text = playRound(playerSelection, computerSelection);
         if ("You win" === text.substring(0,7)) {
