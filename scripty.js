@@ -48,27 +48,10 @@ function playRound(playerSelection, computerSelection) {
 
 // asks input 5 times shows results of each rounds and at the end also shows your wins, loses and ties
 function game() {
-    let win = 0
-    let lose = 0
-    let tie = 0
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Enter rock, paper or scissor (Default is scissor)");
-        let computerSelection = computerPlay();
-        text = playRound(playerSelection, computerSelection);
-        if ("You win" === text.substring(0,7)) {
-            win += 1
-        }
-        else if ("You Lose" === text.substring(0,8)) {
-            lose += 1
-        }
-        else if ("Tie" === text.substring(7,10)) {
-            tie += 1
-        }
-        console.log(text)
-    }
-    console.log("Your Wins:", win)
-    console.log("Your Lose:", lose)
-    console.log("Your Tie:", tie)
+    let playerSelection = prompt("Enter rock, paper or scissor (Default is scissor)");
+    let computerSelection = computerPlay();        
+    text = playRound(playerSelection, computerSelection);
+    console.log(text)
 }
 
-game()
+game();
