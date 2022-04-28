@@ -1,74 +1,151 @@
-// function that returns 'rock' or 'paper' or 'scissor' randomly. Default return for invalid input is scissor 
-function computerPlay() {
-    randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) {
-        return "Rock"
-    }
-    else if (randomNumber === 2) {
-        return "Paper"
-    }
-    else {
-        return "Scissor"
-    }
+function btnClick(e) {
+    const playerChoice = e.target.id;
+    const computerChoice = computerRandomChoice();
+    showManSymbol(playerChoice);
+    showComputerSymbol(computerChoice);
+    tieCheck(playerChoice,computerChoice);
+    resetCheck();
 }
 
-// function that compares selections and returns results of it in a string
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection[0].toUpperCase() + playerSelection.substr(1).toLowerCase()
-    if (playerSelection === computerSelection) {
-        return "It's a Tie!!!"
-    }
-    else {
-        if (playerSelection === "Rock") {
-            if (computerSelection === "Paper") {
-                return "You Lose! Paper beats Rock"
-            }
-            else {
-                return "You win! Rock beats Scissor"
-            }
-        }
-        else if (playerSelection === "Paper") {
-            if (computerSelection === "Scissor") {
-                return "You Lose! Scissor beats Paper"
-            }
-            else {
-                return "You win! Paper beats Rock"
-            }
+function resetCheck() {
+    let manpoint = document.getElementById("manpoints");
+    let mpoint = manpoint.innerText;
+    mpoint = parseInt(mpoint);
+    let compoint = document.getElementById("compoints");
+    let cpoint = compoint.innerText;
+    cpoint = parseInt(cpoint);
+    let text = document.querySelector("#text");
+    if (mpoint === 5 || cpoint === 5) {
+        const box = document.querySelector(".overlay");
+        box.style.display = "block"
+        if (mpoint > cpoint) {
+            text.innerText = "You Won!";
+            console.log("you won");
         }
         else {
-            if (computerSelection === "Rock") {
-                return "You Lose! Rock beats Scissor"
-            }
-            else {
-                return "You win! Scissor beats Paper"
-            }
+            text.innerText = "You Lose!";
+            console.log("you lose");
         }
     }
 }
 
-// asks input 5 times shows results of each rounds and at the end also shows your wins, loses and ties
-function game() {
-    let win = 0
-    let lose = 0
-    let tie = 0
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Enter rock, paper or scissor (Default is scissor)");
-        let computerSelection = computerPlay();
-        text = playRound(playerSelection, computerSelection);
-        if ("You win" === text.substring(0,7)) {
-            win += 1
-        }
-        else if ("You Lose" === text.substring(0,8)) {
-            lose += 1
-        }
-        else if ("Tie" === text.substring(7,10)) {
-            tie += 1
-        }
-        console.log(text)
+function tieCheck(playerChoice,computerChoice) {
+    if (playerChoice === computerChoice) {
+        ctext.innerText = "It's a tie"
+        return;
     }
-    console.log("Your Wins:", win)
-    console.log("Your Lose:", lose)
-    console.log("Your Tie:", tie)
+    else {
+        const gameres = gameRound(playerChoice,computerChoice);
+        scoreUpdate(gameres);
+        chooseText(gameres,playerChoice,computerChoice);
+    }
 }
 
-game()
+function gameRound(playerChoice,computerChoice) {
+    if (playerChoice === "rock") {
+        if (computerChoice === "scissor") {
+            return true;
+        }
+        else if (computerChoice === "paper") {
+            return false;
+        }
+    }
+    else if (playerChoice === "paper") {
+        if (computerChoice === "rock") {
+            return true;
+        }
+        else if (computerChoice  === "scissor") {
+            return false;
+        }
+    }
+    else if (playerChoice === "scissor") {
+        if (computerChoice === "paper") {
+            return true;
+        }
+        else if (computerChoice === "rock") {
+            return false;
+        }
+    }
+}
+
+function scoreUpdate(val) {
+    if (val) {
+        let manpoint = document.getElementById("manpoints");
+        let point = manpoint.innerText;
+        point = parseInt(point);
+        point += 1
+        manpoint.innerText = point;
+    }
+    else {
+        let compoint = document.getElementById("compoints");
+        let point = compoint.innerText;
+        point = parseInt(point);
+        point += 1
+        compoint.innerText = point;
+    }
+}
+
+function showManSymbol(s) {
+    const mansym = document.getElementById("mansym");
+    mansym.innerText = symbolShow(s);
+}
+
+function showComputerSymbol(s) {
+    const comsys = document.getElementById("comsym");
+    comsys.innerText = symbolShow(s)
+}
+
+function symbolShow(sys) {
+    switch(sys) {
+        case "rock":
+            return "✊";
+            break;
+        case "paper":
+            return "✋";
+            break;
+        case "scissor":
+            return "✌";
+            break;
+        default:
+            return;
+    }
+}
+
+function computerRandomChoice() {
+    randomNumber = Math.floor(Math.random() * 3);
+    if (randomNumber == 0) {
+        return "rock";
+    }
+    else if (randomNumber == 1) {
+        return "paper";
+    }
+    else {
+        return "scissor";
+    }
+}
+
+const ctext = document.getElementById("choose");
+function chooseText(gameres,playerChoice,computerChoice) {
+    if (gameres) {
+        ctext.innerText = "You won! " + playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1) + " beats " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + "."
+    }
+    else {
+        ctext.innerText = "You lost! " + computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1) + " beats " + playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1) + "."
+    }
+}
+
+function resetGame(e) {
+    console.log("reset")
+    let manpoint = document.getElementById("manpoints");
+    manpoint.innerText = 0;
+    let compoint = document.getElementById("compoints");
+    compoint.innerText = 0;
+    const box = document.querySelector(".overlay");
+    ctext.innerText = "Choose"
+    box.style.display = "none"
+}
+
+const btn = Array.from(document.querySelectorAll(".btn"));
+btn.forEach(button => button.addEventListener('click', btnClick));
+const rbtn = document.querySelector("#reset-btn");
+rbtn.addEventListener('click', resetGame);

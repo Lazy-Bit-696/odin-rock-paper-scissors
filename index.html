@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ROCK PAPER SCISSORS</title>
-</head>
-<body>
-    <script src="scripty.js"></script>
-</body>
+    <link rel="stylesheet" href="style.css" />
+    <script src="scripty.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        Rock Paper Scissor
+        <br />
+        Man v/s Computer
+      </h1>
+    </header>
+    <main>
+      <article>
+        <section>
+          <p id="rules">Rules: The first one to win 5 matches wins the game</p>
+        </section>
+      </article>
+      <article class="scores">
+        <section class="scorecard">
+          <h3>Man</h3>
+          <p class="symbol" id="mansym">❔</p>
+          <p id="manpoints">0</p>
+        </section>
+        <section class="scorecard">
+          <h3>Computer</h3>
+          <p class="symbol" id="comsym">❔</p>
+          <p id="compoints">0</p>
+        </section>
+      </article>
+      <article>
+        <section>
+          <h2 id="choose">Choose</h2>
+        </section>
+        <section class="btns">
+          <button class="btn" id="rock">✊</button>
+          <button class="btn" id="paper">✋</button>
+          <button class="btn" id="scissor">✌</button>
+        </section>
+      </article>
+    </main>
+    <footer>
+      <p>&copy; Lazy-Bit-696</p>
+    </footer>
+    <article class="overlay">
+      <section id="reset-box">
+        <p id="text"></p>
+        <button id="reset-btn">Reset</button>
+      </section>
+    </article>
+  </body>
 </html>
